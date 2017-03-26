@@ -1,0 +1,133 @@
+<%= theme_heading("Admin Dashboard", col_class: "ml-20") %>
+
+<%
+	items = {
+		enquiries: {
+			heading: "Enquiries",
+			total_count: Enquiry.read.count,
+			new_count: Enquiry.unread.count,
+			total_text: "Total",
+			new_text: "Unread!",
+			view_text: "View Details",
+			link: admin_enquiries_path,
+			fa_class: "fa fa-envelope fa-3x"
+		},
+		testimonials: {
+			heading: "Testimonials",
+			total_count: Testimonial.published.count,
+			new_count: Testimonial.this_month.published.count,
+			total_text: "Total",
+			new_text: "New",
+			view_text: "View Details",
+			link: admin_testimonials_path,
+			fa_class: "fa fa-comments fa-3x"
+		},
+		teams: {
+			heading: "Teams",
+			total_count: Team.published.count,
+			new_count: Team.count,
+			total_text: "Total",
+			new_text: "Active",
+			view_text: "View Details",
+			link: admin_teams_path,
+			fa_class: "fa fa-users fa-3x"
+		},
+		events: {
+			heading: "News & Events",
+			total_count: Event.count,
+			new_count: Event.published.count,
+			total_text: "Total",
+			new_text: "Unpublished",
+			view_text: "View Details",
+			link: admin_events_path,
+			fa_class: "fa fa-calendar fa-3x"
+		},
+		brands: {
+			heading: "Brands",
+			total_count: Brand.count,
+			new_count: Brand.published.count,
+			total_text: "Total",
+			new_text: "Active",
+			view_text: "View Details",
+			link: admin_brands_path,
+			fa_class: "fa fa-bullseye fa-3x"
+		},
+		users: {
+			heading: "Users",
+			total_count: User.active.count,
+			new_count: User.active.count,
+			total_text: "Total",
+			new_text: "New",
+			view_text: "View Details",
+			link: admin_users_path,
+			fa_class: "fa fa-user fa-3x"
+		}
+	}
+	items = {
+		brands: {
+			heading: "Brands",
+			total_count: Brand.count,
+			new_count: Brand.published.count,
+			total_text: "Total",
+			new_text: "Published",
+			view_text: "View Details",
+			link: admin_brands_path,
+			fa_class: "fa fa-bullseye fa-3x"
+		},
+		categories: {
+			heading: "Categories",
+			total_count: Category.count,
+			new_count: Category.published.count,
+			total_text: "Total",
+			new_text: "Published",
+			view_text: "View Details",
+			link: admin_categories_path,
+			fa_class: "fa fa-bullseye fa-3x"
+		},
+		products: {
+			heading: "Products",
+			total_count: Product.count,
+			new_count: Product.published.count,
+			total_text: "Total",
+			new_text: "Published",
+			view_text: "View Details",
+			link: admin_products_path,
+			fa_class: "fa fa-bullseye fa-3x"
+		}
+	}
+%>
+
+<div class-"cl-20"></div>
+
+<div class-"row">
+<% items.each do |item, data| %>
+	<div class="col-lg-4 col-md-6 mt-10">
+		<div class="panel panel-white">
+			<div class="panel-heading" style="height:120px;">
+				<div class="row">
+					<div class="col-xs-5">
+						<h5><%= data[:heading] %></h5>
+						<i class="<%= data[:fa_class] %>"></i>
+					</div>
+					<div class="col-xs-3">
+						<div class="huge" style="font-size:3em;font-weight: bold;color: #F6A456"><%= data[:new_count] %></div>
+						<div><%= data[:new_text] %></div>
+					</div>
+					<div class="col-xs-3">
+						<div class="huge" style="font-size:3em;font-weight: bold;color: #F6A456"><%= data[:total_count] %></div>
+						<div><%= data[:total_text] %></div>
+					</div>
+				</div>
+			</div>
+			<a href="<%= data[:link] %>">
+				<div class="panel-footer">
+					<span class="pull-left"><%= data[:view_text] %></span>
+					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+<% end %>
+<div class-"cl-10"></div>
+</div>

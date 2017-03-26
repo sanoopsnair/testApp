@@ -1,0 +1,37 @@
+.btn-golden, .btn-theme {
+	color: #4B4B4B;
+	font-size:14px;
+	font-weight: 800;
+  border-color: #dcc255;
+  background: #eace58;
+}
+.btn-golden:hover, .btn-theme:hover {
+	border-color: #eace58;
+  background: #dcc255;
+}
+
+.btn-outline:hover {
+	color: #FFF;
+  border-color: #dcc255;
+  background: #eace58;
+}
+
+.btn-default:hover {
+	color: #FFF;
+  border-color: #dcc255;
+  background: #eace58;
+}
+
+.btn-light:hover {
+	color: #FFF;
+  border-color: #dcc255;
+  background: #eace58;
+}
+
+.a-active, .light-style a.active, .light-style a.hover, .light-style a.focus {
+	color: #dcc255 !important;
+}
+
+.overlay-darker {
+	background: rgba(0, 0, 0, 0.1);
+}

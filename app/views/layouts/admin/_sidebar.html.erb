@@ -1,0 +1,54 @@
+<ul class="sidebar-nav">
+
+  <%= image_tag("/assets/logo.png", class: "centered mt-20 mb-40", alt: "Golden Pioneer General Trading") %>  
+  
+  <li class="<%= nav_class("admin/dashboard") %>">
+    <%= link_to raw("<i class=\"fa fa-dashboard mr-5\"></i> Dashboard"), admin_dashboard_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/categories") %>">
+    <%= link_to raw("<i class=\"fa fa-share mr-5\"></i> Product Categories"), admin_categories_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/products") %>">
+    <%= link_to raw("<i class=\"fa fa-square mr-5\"></i> Products"), admin_products_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/brands") %>">
+    <%= link_to raw("<i class=\"fa fa-bullseye mr-5\"></i> Brands"), admin_brands_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/events") %>">
+    <%#= link_to raw("<i class=\"fa fa-calendar mr-5\"></i> Events & News"), admin_events_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/enquiries") %>">
+    <%#= link_to raw("<i class=\"fa fa-envelope mr-5\"></i> Enquiries"), admin_enquiries_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/testimonials") %>">
+    <%#= link_to raw("<i class=\"fa fa-comments mr-5\"></i> Testimonials"), admin_testimonials_url %>
+  </li>
+
+  <li class="<%= nav_class("admin/teams") %>">
+    <%#= link_to raw("<i class=\"fa fa-users mr-5\"></i> Teams"), admin_teams_url %>
+  </li>
+
+  <li role="presentation" class="divider"></li>
+
+  <% if @current_user.super_admin? %>
+
+    <li class="<%= nav_class("admin/users") %>">
+      <%= link_to raw("<i class=\"fa fa-user mr-5\"></i> Manage Users"), admin_users_url %>
+    </li>
+
+  <% end %>
+
+  <li class="<%= nav_class("home") %>">
+    <%= link_to raw("<i class=\"fa fa-home mr-5\"></i> Launch Website"), root_url, target: "_blank" %>
+  </li>
+
+  <li>
+    <%= link_to raw("<i class=\"fa fa-power-off mr-5\"></i> Sign Out"), sign_out_path, :method => :delete %>
+  </li>
+</ul>
