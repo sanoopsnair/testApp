@@ -13,7 +13,10 @@ class AuthenticationService
       		check_if_user_is_active
 		end
 
+		@user.start_session unless @error
+
 	end 
+
 
 
 	def invalid_login_error

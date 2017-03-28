@@ -17,5 +17,5 @@ class Admin::BaseController < ApplicationController
     def javascript_filename
       @javascript_filename = "admin"
     end 
-	
+
 end

@@ -4,6 +4,7 @@ module AuthenticationHelper
 	def current_user
 		puts "current_user !!!!"
 		# if current user exist or assigne with user getting from httptoken
+		puts " --- loged user #{authenticate_with_http_token { |token, options| User.find_by(auth_token: token)}}"
 		@current_user ||= authenticate_with_http_token { |token, options| User.find_by(auth_token: token)}
 	end
 
@@ -38,6 +39,15 @@ module AuthenticationHelper
     	end
   	end
 
+	# This method is widely used to create the @current_user object from the session
+	# This method will return @current_user if it already exists which will save queries when called multiple times
+	def current_user
+		# Check if the user exists with the auth token present in session
+		@current_user = User.find_by_id(session[:id]) unless @current_user
+		return @current_user
+	end
+
+	
   	# This method is usually used as a before filter to secure some of the actions which requires the user to be signed in.
 	def require_user
     	current_user

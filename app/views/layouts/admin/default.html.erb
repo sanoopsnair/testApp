@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <!-- Head -->
+    <%= render :partial=>"/layouts/admin/head" -%>
+  </head>
+
+  <body>
+    <div>
+      <div class="container-fluid header-block clearfix">
+        <div id="div_page_header">
+          <%= render :partial=>"/layouts/admin/head" -%>
+        </div>
+
+        <%#* Show flash messages if controller has set any. -%>
+        <div id="div_flash_message" class="mt-50">
+          <%= flash_message(false) if defined?(flash) -%>
+        </div>
+
+        <%#* Page Content Starts here -%>
+        <div id="div_page_content_main" class="mt-50">
+          <%= yield %>
+        </div>
+
+        <%#* Display Footer -%>
+        <div id="div_page_footer" class="row footer">
+          <%= render :partial=>"/layouts/admin/footer" -%>
+        </div>
+
+      </div>
+
+    </div>
+
+    <%#* Display Hidden Overlays -%>
+    <%= render :partial=>"/layouts/common/overlays" -%>
+
+    <%#* Loading Javascripts -%>
+    <%= javascript_include_tag @javascript_filename -%>
+
+    <%= yield :javascript_footer -%>
+
+  </body>
+
+</html>

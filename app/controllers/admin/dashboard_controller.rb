@@ -1,16 +1,17 @@
 module Admin
-	class DashboardController < Admin::BaseController
+  class DashboardController < Admin::BaseController
 
-    	# GET /dashboard
-		def index
-		end
+    # GET /dashboard
+    def index
+    	puts " ---------- index"
+    end
 
-    	private
+    private
 
-    	def set_navs
-      		set_nav("admin/dashboard")
-    	end
+    def set_navs
+      set_nav("admin/dashboard")
+    end
 
-  	end
+  end
 end
 
