@@ -1,0 +1,36 @@
+<% url = @brand.new_record? ? admin_brands_path : admin_brand_path(id: @brand.id) %>
+<%= form_for(
+  @brand, 
+  url: url,
+  :html => {:id=>"form_brand", 
+            :class=>"mb-0 form-horizontal", :role => "form", 
+            :method => (@brand.new_record? ? :post : :put), 
+            :remote=>true}) do |f| %>
+
+  <div class="panel panel-default">
+    <div class="panel-body" style="height:auto;">
+
+      <div id="brand_form_error">
+        <%= @brand.errors[:base].to_sentence %>
+      </div>
+
+      <div class="form-inputs mb-30 mt-30">
+
+        <%= theme_form_field(@brand, :name) %>
+        <%= theme_form_field(@brand, :priority, required: false, html_options: {type: :number, style: "width:70px;"}) %>
+        
+      </div>
+
+    </div>
+
+    <div class="panel-footer clearfix">
+      <div class="pull-right">
+        <%= link_to "Cancel", "#", onclick: "closeModal();", class: "btn btn-default" %>
+        <%= theme_form_button(@brand) %>
+      </div>
+    </div>
+
+  </div>
+
+<% end %>
+

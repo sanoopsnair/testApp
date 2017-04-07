@@ -1,0 +1,16 @@
+<% if @destroyed %>
+  closeModal();
+  $('#div_brand_index').html("<%= escape_javascript(render(:partial=>'admin/brands/index')) %>");
+<% else %>
+  // Show the error in a modal
+	<%
+    text = Brand::DELETE_MESSAGE
+    error_message = content_tag(:div, text, class: 'alert alert-danger')
+  %>
+  heading = "Remove '<%= @brand.name %>'";
+	bodyContent = "<%= escape_javascript(error_message) %>";
+	showModal(heading, bodyContent);
+	var $div = $('<iframe id="iframe_brand" name="iframe_brand" width="100%" style="display:none"></iframe>').appendTo('body');
+<% end %>
+
+

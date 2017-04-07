@@ -1,0 +1,25 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Dashboard", admin_dashboard_path %></a></li>
+  <li class="active">Users</li>
+</ol>
+
+<h2 class="center-align">Users</h2>
+<h4 class="center-align">Manage Users</h4>
+<%= clear_tag(10) %>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div id="div_user_action_buttons">
+      <%= render :partial=>"admin/users/action_buttons" %>
+    </div>
+    <%= clear_tag(10) %>
+
+    <div id="div_user_index">
+      <%= render :partial=>"admin/users/index" %>
+		</div>
+    <%= clear_tag(10) %>
+
+  </div>
+</div>
+

@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-md-4">
+		<%= theme_button('Add a Brand', 'plus', new_admin_brand_path(), classes: "pull-left ml-5 mb-5", btn_type: "success") %>
+	</div>
+	<div class="col-md-8">
+		<%= theme_search_form(Brand, admin_brands_path, :get, true, @filters[:query], "Search ...", "Search!") %>
+	</div>
+</div>
+
+
+

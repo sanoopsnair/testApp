@@ -1,0 +1,15 @@
+<% if @brand.errors.blank? %>
+  $('#div_brand_index').html("<%= escape_javascript(render(:partial=>'admin/brands/index')) %>");
+  closeModal();
+<% else %>
+	// Show the form in the modal
+	heading = "Edit '<%= raw @brand.name %>'";
+	bodyContent = "<%= escape_javascript(render(:partial=>'admin/brands/form')) %>";
+	showModal(heading, bodyContent);
+	var $div = $('<iframe id="iframe_brand" name="iframe_brand" width="100%" style="display:none"></iframe>').appendTo('body');
+  <%
+    text = "You have few errors. They have been highlighted."
+    error_message = content_tag(:div, text, class: "alert alert-danger")
+  %>
+  $("#brand_form_error").html("<%= escape_javascript(error_message) %>");
+<% end %>

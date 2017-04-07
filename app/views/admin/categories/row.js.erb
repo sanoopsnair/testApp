@@ -1,0 +1,17 @@
+<% if @category.errors.blank? %>
+  
+  <% status_hash = {published: "success", unpublished: "default", removed: "danger"} %>
+  // Refresh the updated item in the list
+
+  $("#tr_category_<%= @category.id %>").html("<%= escape_javascript(render(:partial=>'admin/categories/row', locals: {category: @category, iteration: -1})) %>")
+  
+  // Close Modal
+  closeModal();
+
+<% else %>
+
+  // Populate Server Side Errors
+  errorMessages = <%= @category.errors.full_messages.to_json.html_safe %>;
+  populateServerSideErrors('category', errorMessages);
+
+<% end %>

@@ -1,0 +1,6 @@
+<div class="table-responsive"></div>
+<% @categories.each do |category| %>
+	<%= render partial: "row", locals: {category: category, iteration: 0} %>
+<% end %>
+
+<%= theme_paginate(@categories) %>

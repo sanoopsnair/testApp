@@ -1,0 +1,10 @@
+<% if @product.errors.blank? %>
+  <% status_hash = {published: "success", unpublished: "default", removed: "danger"} %>
+  // Refresh the updated item in the list
+  $("#tr_product_<%= @product.id %>").replaceWith("<%= escape_javascript(render(:partial=>'admin/products/row', locals: {product: @product, i: -1})) %>")
+  closeModal();
+<% else %>
+  // Populate Server Side Errors
+  errorMessages = <%= @product.errors.full_messages.to_json.html_safe %>;
+  populateServerSideErrors('product', errorMessages);
+<% end %>

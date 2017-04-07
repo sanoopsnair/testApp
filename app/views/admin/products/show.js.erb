@@ -1,0 +1,8 @@
+// Show the new form in the right box.
+heading = "<%= raw @product.name %>";
+bodyContent = "<%= escape_javascript(render(:partial=>'admin/products/show')) %>";
+closeModal();
+showLargeModal(heading, bodyContent);
+
+// When the image upload form is submitted, the server response will appear in this iframe -->
+var $div = $('<iframe id="iframe_product" name="iframe_product" width="100%" style="display:none"></iframe>').appendTo('body');

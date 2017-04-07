@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 	include ResourceHelper
 	include NavigationHelper
 	include MetaTagsHelper
+	include FilterHelper
 	# include ParamsParserHelper
 
   	## This filter method is used to fetch current user

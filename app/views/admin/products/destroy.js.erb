@@ -1,0 +1,16 @@
+<% if @destroyed %>
+  closeModal();
+  $('#div_product_index').html("<%= escape_javascript(render(:partial=>'admin/products/index')) %>");
+<% else %>
+  // Show the error in a modal
+	<%
+    text = Product::DELETE_MESSAGE
+    error_message = content_tag(:div, text, class: 'alert alert-danger')
+  %>
+  heading = "Remove '<%= @product.name %>'";
+	bodyContent = "<%= escape_javascript(error_message) %>";
+	showLargeModal(heading, bodyContent);
+	var $div = $('<iframe id="iframe_product" name="iframe_product" width="100%" style="display:none"></iframe>').appendTo('body');
+<% end %>
+
+

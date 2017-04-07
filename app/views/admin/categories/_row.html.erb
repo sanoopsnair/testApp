@@ -1,0 +1,112 @@
+<% edit_link = edit_admin_category_path(id: category.id) %>
+<% delete_link = admin_category_path(id: category.id) %>
+
+<div id="div_category_<%= category.id %>">
+	
+	<div class="panel1 panel-default1 media p-5" 
+			style="margin-bottom:10px;margin-left:<%= iteration*40 %>px;border-bottom:1px solid #f1f1f1;">
+	  <a class="media-left" href="#" style="font-size:40px;">
+	    <%#= display_image(category, "category_image.image.small.url", width: "auto", height: "100px") %>
+	  </a>
+	  <div class="media-body" style="height:30px;">
+	  	<% if category.parent.blank? %>
+	  		<% if category.priority %>
+					<span class="label label-default"><%= category.priority %></span>
+				<% end %>
+	  		<%= link_to category.name, admin_category_path(category), remote: true, style: "color: #23527c;font-size:18px;text-transformation: upcase;", class: "ml-5 mt-10" %>
+	  	<% else %>
+	  		<% if category.priority %>
+					<span class="label label-default"><%= category.priority %></span>
+				<% end %>
+	  		<%= link_to category.name, admin_category_path(category), remote: true, style: "font-size:14px;" %>
+	  		<%= link_to " - ( #{category.top_parent.name} )", admin_category_path(category), remote: true, style: "font-size:14px;" if category.top_parent %>
+	  	<% end %>
+
+	  	<% unless category.one_liner.blank? %>
+				<span class="ml-5 mt-5" style="color:#4b4b4b;"> - <%= category.one_liner %></span>
+			<% end %>
+	  	
+	  	<% if category.featured %>
+				<span class="ml-5 mt-5 label label-warning">Featured</span>
+			<% end %>
+
+			<% if category.unpublished? %>
+				<span class="ml-5 mt-5 label label-default">Unpublished</span>
+			<% elsif category.published? %>
+				<span class="ml-5 mt-5 label label-success">Published</span>
+			<% elsif category.removed? %>
+				<span class="ml-5 mt-5 label label-danger">Removed</span>
+			<% else %>
+				<span class="ml-5 mt-5 label label-danger"><%= category.status %></span>
+			<% end %>
+
+	  </div>
+	  <div class="media-body" style="width:10%">
+	  	<div class="dropdown" style="position:absolute !important;">
+
+				<button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="color:inherit;">
+					<%= raw("<i class=\"fa fa-cogs mr-5\"></i> Action") %>
+					<span class="caret"></span>
+				</button>
+
+				<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+
+					<li role="presentation">
+	          <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Edit"), edit_link, :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+	        </li>
+	        <% unless category.parent_id.blank? %>
+	        <li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-circle mr-5\"></i> Make Parent"), make_parent_admin_category_path(:id =>category.id, :status =>'unpublished'), :method =>'PUT', :remote=>true, data: { confirm: 'Are you sure? Do you really need to make this a parent category?' }, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<% end %>
+	        <li role="presentation" class="divider"></li>
+
+					<% case category.status %>
+					<% when "published" %>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-circle mr-5\"></i> UnPublish"), update_status_admin_category_path(:id =>category.id, :status =>'unpublished'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove"), update_status_admin_category_path(:id =>category.id, :status =>'removed'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<li role="presentation" class="divider"></li>
+					<% if category.featured? %>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove from Featured"), remove_from_featured_admin_category_path(:id =>category.id), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_featured" %>
+					</li>
+					<% else %>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Mark as Featured"), mark_as_featured_admin_category_path(:id =>category.id), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_featured" %>
+					</li>
+					<% end %>
+					<% when "unpublished" %>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-circle-o mr-5\"></i> Publish"), update_status_admin_category_path(:id =>category.id, :status =>'published'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove"), update_status_admin_category_path(:id =>category.id, :status =>'removed'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<% when "removed" %>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-circle mr-5\"></i> UnPublish"), update_status_admin_category_path(:id =>category.id, :status =>'unpublished'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-circle-o mr-5\"></i> Publish"), update_status_admin_category_path(:id =>category.id, :status =>'published'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<li role="presentation">
+						<%= link_to raw("<i class=\"fa fa-trash mr-5\"></i> Delete"), delete_link, :method => :delete, :remote=>true, role: "menuitem", tabindex: "-1", :class=>"category_status" %>
+					</li>
+					<% end %>
+
+				</ul>
+			</div>
+	  </div>
+	</div>  
+
+	<% category.sub_categories.order("priority ASC, name ASC").each do |category| %>
+		<div id="div_category_<%= category.id %>">
+			<%= render partial: "row", locals: {category: category, iteration: iteration + 1} %>
+		</div>
+	<% end %>
+
+</div>

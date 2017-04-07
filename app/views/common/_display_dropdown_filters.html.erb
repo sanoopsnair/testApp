@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-12">
+    <% @filter_config_ui.each do |filter_name, options| %>
+      <% if options[:object_filter] == true %>
+        <%= report_object_filter(filter_name, options) %>
+      <% else %>
+        <%= report_filter(filter_name, options) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

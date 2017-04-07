@@ -1,0 +1,15 @@
+<% if @category.errors.blank? %>
+  $('#div_category_index').html("<%= escape_javascript(render(:partial=>'admin/categories/index')) %>");
+  closeModal();
+<% else %>
+	// Show the form in the modal
+	heading = "Edit '<%= raw @category.name %>'";
+	bodyContent = "<%= escape_javascript(render(:partial=>'admin/categories/form')) %>";
+	showLargeModal(heading, bodyContent);
+	var $div = $('<iframe id="iframe_category" name="iframe_category" width="100%" style="display:none"></iframe>').appendTo('body');
+  <%
+    text = "You have few errors. They have been highlighted."
+    error_message = content_tag(:div, text, class: "alert alert-danger")
+  %>
+  $("#category_form_error").html("<%= escape_javascript(error_message) %>");
+<% end %>

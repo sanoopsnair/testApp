@@ -1,0 +1,117 @@
+<div class="table-responsive"> 
+	<table class="table table-striped table-condensed table-bordered"> 
+		<thead> 
+			<tr> 
+				<th style="text-align: center;width:30px">#</th> 
+				<th >Name</th>
+				<th style="text-align: center;width:10%">Featured</th>
+				<th style="text-align: center;width:80px;">Status</th>
+				<th style="text-align: center;width:80px;">Priority</th>
+				<th style="text-align: center;width:120px;">Actions</th>
+			</tr>
+		</thead>
+		<tbody> 
+			<% @brands.each_with_index do |brand, i| %>
+				<tr id="tr_brand_<%= brand.id %>">
+					
+					<% edit_link = edit_admin_brand_path(id: brand.id) %>
+					<% delete_link = admin_brand_path(id: brand.id) %>
+					
+					<th scope="row" style="text-align: center;">
+						<% if i < 0 %>
+							<i class="fa fa-check text-success"></i>
+						<% else %>
+							<%= i + 1 + (@per_page.to_i * (@current_page.to_i - 1)) %>
+						<% end %>
+					</th>
+					
+					<td>
+						<%= link_to brand.name, admin_brand_path(brand), remote: true %>
+					</td>
+
+					<td>
+						<% if brand.featured %>
+				      <span class="ml-5 mt-5 label label-warning">Featured</span>
+				    <% end %>
+					</td>
+
+					<td>
+						<% if brand.unpublished? %>
+							<span class="ml-5 mt-5 label label-default">Unpublished</span>
+						<% elsif brand.published? %>
+							<span class="ml-5 mt-5 label label-success">Published</span>
+						<% elsif brand.removed? %>
+							<span class="ml-5 mt-5 label label-danger">Removed</span>
+						<% else %>
+							<span class="ml-5 mt-5 label label-danger"><%= brand.status %></span>
+						<% end %>
+					</td>
+
+					<td style="text-align: center;"><%= brand.priority %></td>
+
+					<td style="text-align: center;">
+						
+						<div class="dropdown pull-right">
+
+					    <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="color:inherit;">
+					      <%= raw("<i class=\"fa fa-cogs mr-5\"></i> Action") %>
+					      <span class="caret"></span>
+					    </button>
+
+					    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+					    	<li role="presentation">
+				          <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Edit"), edit_link, :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+				        </li>
+				        <li role="presentation" class="divider"></li>
+
+					     	<% case brand.status %>
+					      <% when "published" %>
+					        <li role="presentation">
+					          <%= link_to raw("<i class=\"fa fa-circle mr-5\"></i> UnPublish"), update_status_admin_brand_path(:id =>brand.id, :status =>'unpublished'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					        <li role="presentation">
+					          <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove"), update_status_admin_brand_path(:id =>brand.id, :status =>'removed'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					        <li role="presentation" class="divider"></li>
+					        <% if brand.featured? %>
+						        <li role="presentation">
+						          <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove from Featured"), remove_from_featured_admin_brand_path(:id =>brand.id), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_featured" %>
+						        </li>
+					        <% else %>
+					        	<li role="presentation">
+						          <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Mark as Featured"), mark_as_featured_admin_brand_path(:id =>brand.id), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_featured" %>
+						        </li>
+					        <% end %>
+					      <% when "unpublished" %>
+					        <li role="presentation">
+					          <%= link_to raw("<i class=\"fa fa-circle-o mr-5\"></i> Publish"), update_status_admin_brand_path(:id =>brand.id, :status =>'published'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					        <li role="presentation">
+					          <%= link_to raw("<i class=\"fa fa-edit mr-5\"></i> Remove"), update_status_admin_brand_path(:id =>brand.id, :status =>'removed'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					      <% when "removed" %>
+					        <li role="presentation">
+					          <%= link_to raw("<i class=\"fa fa-circle mr-5\"></i> UnPublish"), update_status_admin_brand_path(:id =>brand.id, :status =>'unpublished'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					        <li role="presentation">
+					          <%= link_to raw("<i class=\"fa fa-circle-o mr-5\"></i> Publish"), update_status_admin_brand_path(:id =>brand.id, :status =>'published'), :method =>'PUT', :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					        <li role="presentation">
+					        	<%= link_to raw("<i class=\"fa fa-trash mr-5\"></i> Delete"), delete_link, :method => :delete, :remote=>true, role: "menuitem", tabindex: "-1", :class=>"brand_status" %>
+					        </li>
+					      <% end %>
+
+					    </ul>
+
+					  </div>
+
+					</td>
+
+				</tr>
+			<% end %>
+		</tbody> 
+	</table>
+</div>
+
+<%= theme_paginate(@brands) %>

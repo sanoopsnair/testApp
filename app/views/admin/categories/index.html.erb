@@ -1,0 +1,41 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Dashboard", admin_dashboard_path %></a></li>
+  <li class="active">Categories</li>
+</ol>
+
+<h2 class="center-align">Categories</h2>
+<h4 class="center-align">Manage Categories</h4>
+<%= clear_tag(10) %>
+
+<div id="div_category_info">
+	<%= render :partial=>"admin/categories/info" %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Filters
+    <%= link_to "Clear All Filters", admin_categories_path, class: "btn btn-default btn-xs btn-secondary pull-right" %>
+  </div>
+  <div class="panel-body">
+    <div id="div_account_filter_list">
+      <%= render :partial=>"common/display_dropdown_filters" %>
+    </div>
+    <%= clear_tag(10) %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div id="div_category_action_buttons">
+      <%= render :partial=>"admin/categories/action_buttons" %>
+    </div>
+    <hr>
+    <div id="div_category_index">
+      <%= render :partial=>"admin/categories/index" %>
+		</div>
+    <%= clear_tag(10) %>
+
+  </div>
+</div>
+

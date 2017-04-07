@@ -1,0 +1,17 @@
+<% if @brand.errors.blank? %>
+  
+  <% status_hash = {published: "success", unpublished: "default", removed: "danger"} %>
+  // Refresh the updated item in the list
+
+  $("#tr_brand_<%= @brand.id %>").html("<%= escape_javascript(render(:partial=>'admin/brands/row', locals: {brand: @brand, i: -1})) %>")
+  
+  // Close Modal
+  closeModal();
+
+<% else %>
+
+  // Populate Server Side Errors
+  errorMessages = <%= @brand.errors.full_messages.to_json.html_safe %>;
+  populateServerSideErrors('brand', errorMessages);
+
+<% end %>

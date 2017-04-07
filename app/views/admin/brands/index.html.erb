@@ -1,0 +1,42 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Dashboard", admin_dashboard_path %></a></li>
+  <li class="active">Brands</li>
+</ol>
+
+<h2 class="center-align">Brands</h2>
+<h4 class="center-align">Manage Brands</h4>
+<%= clear_tag(10) %>
+
+<div id="div_brand_info">
+	<%= render :partial=>"admin/brands/info" %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Filters
+    <%= link_to "Clear All Filters", admin_brands_path, class: "btn btn-default btn-xs btn-secondary pull-right" %>
+  </div>
+  <div class="panel-body">
+    <div id="div_account_filter_list">
+      <%= render :partial=>"common/display_dropdown_filters" %>
+    </div>
+    <%= clear_tag(10) %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div id="div_brand_action_buttons">
+      <%= render :partial=>"admin/brands/action_buttons" %>
+    </div>
+    <%= clear_tag(10) %>
+
+    <div id="div_brand_index">
+      <%= render :partial=>"admin/brands/index" %>
+		</div>
+    <%= clear_tag(10) %>
+
+  </div>
+</div>
+

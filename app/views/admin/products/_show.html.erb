@@ -1,0 +1,90 @@
+<div class="m-30"> 
+	<div class="table-responsive"> 
+
+		<% status_hash = {published: "success", unpublished: "default", removed: "danger"} %>
+
+		<div class="media p-5 <%= status_hash[@product.status.to_sym] %>" style="margin-bottom:40px;">
+
+		  <div class="pull-left" style="width:30%;">
+      	<%= edit_image(@product, "product_image.image.large.url", upload_image_link(@product, :product_image), size: :large, classes: "btn btn-default btn-xs btn-block mt-10") %>
+	    </div>
+
+	    <div class="pull-left ml-10" style="width:65%;">
+		    
+		    <%= theme_panel_heading(@product.name) %>
+
+		    <span class="ml-5 mt-5 label label-<%= status_hash[@product.status.to_sym] %>"><%= @product.status.titleize %></span>
+		    
+		    <% if @product.featured %>
+		      <span class="ml-5 mt-5 label label-warning">Featured</span>
+		    <% end %>
+
+		    <%= clear_tag(10) %>
+
+        <%= theme_panel_sub_heading("SKU: #{@product.sku}", "#") %>
+        <%= clear_tag(5) %>
+        <%= theme_panel_sub_heading("Category: #{@product.category.name}", "#", "fs-16 text-color-green") if @product.category %>
+        <%= clear_tag(5) %>
+        <%= theme_panel_sub_heading("Brand: #{@product.brand.name}", "#", "fs-16 text-color-green") if @product.brand %>
+		    
+		    <%= clear_tag(20) %>
+
+		    <%= theme_panel_description(@product.one_liner) %>
+
+		    <%= clear_tag(20) %>
+
+		    <%= theme_panel_description(@product.description) %>
+
+		    <%= clear_tag(20) %>
+
+		  </div>
+
+		</div>
+
+
+		<% if @current_user.super_admin? %>
+
+		<h4 class="mb-20">Technical Details</h4>
+
+		<table class="table table-striped table-condensed table-bordered mb-60"> 
+			<tbody>
+				
+				<tr>
+					<th>Product ID</th><td><%= @product.id %></td>
+					<th>SKU</th><td><%= @product.sku %></td>
+				</tr>
+
+				<tr>
+					<th>Category</th><td><%= "#{@product.category.id} - #{@product.category.name}" if @product.category %></td>
+					<th>Top Category</th><td><%= "#{@product.top_category.id} - #{@product.top_category.name}" if @product.top_category %></td>
+				</tr>
+
+				<tr>
+					<th>Brand</th><td><%= @product.brand.name if @product.brand %></td>
+					<th>Priority</th><td><%= @product.priority %></td>
+				</tr>
+
+				<tr>
+					<th>Featured</th><td><%= @product.featured.to_s %></td>
+					<th>Status</th><td><%= @product.status %></td>
+				</tr>
+
+				<tr>
+					<th>Created At</th><td><%= @product.created_at.strftime("%m/%d/%Y - %H:%M:%S") if @product.created_at %></td>
+					<th>Updated At</th><td><%= @product.updated_at.strftime("%m/%d/%Y - %H:%M:%S") if @product.updated_at %></td>
+				</tr>
+				
+			</tbody>
+		</table>
+
+		<% end %>
+
+		<% 
+			edit_link = edit_admin_product_url(id: @product.id)
+			delete_link = admin_product_url(id: @product.id) 
+		%>
+		
+		<%= link_to "Close", "#", onclick: "closeModal();", class: "btn btn-default pull-right" %>
+		
+	</div>
+</div>
